@@ -1,0 +1,44 @@
+.images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.images img {
+    width: 100%;
+    max-width: 300px;
+
+}
+
+.upload-container>input {
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-button {
+    cursor: pointer;
+    width: 100px;
+    border-radius: 8px;
+    height: 60px;
+    background-color: #f33f3f;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 200
+}
+
+@media (max-width: 768px) {
+
+    /* Pantallas pequeñas (tablets y móviles) */
+    .images img {
+        max-width: 100px;
+        /* La imagen ocupa el 80% del ancho del contenedor */
+    }
+}
+
+
+.content-1 {
+    margin-top: 20px;
+}

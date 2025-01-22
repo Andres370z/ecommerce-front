@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  URL_SERVE : 'http://localhost:3000/api/',
+  URL_IMAGEUP: "https://api.cloudinary.com/v1_1/da4si8eaz/image/upload"
+
 };
 
 /*

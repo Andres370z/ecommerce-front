@@ -1,0 +1,99 @@
+<div class="page-heading contact-heading header-text">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-content">
+          <h4>Bienvenido es hora de agregar</h4>
+          <h2> un nuevo producto</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="send-message">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <h2>Registra tu producto</h2>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="contact-form">
+          <form id="contact" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="row">
+              <div class="col-lg-4 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="name" type="text" class="form-control" placeholder="Titulo" required="" formControlName="title">
+                </fieldset>
+              </div>
+
+              <div class="col-lg-4 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="subject" type="number" class="form-control" placeholder="Precio" required="" formControlName="price">
+                </fieldset>
+              </div>
+              <div class="col-lg-4 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="subject" type="number" class="form-control" placeholder="Cantidad en stock" required="" formControlName="quantity">
+                </fieldset>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="subject" type="text" class="form-control" placeholder="Pequeña descripcion" formControlName="short_desc"
+                    required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-2">
+                <fieldset>
+                  <select class="form-control" formControlName="cat_id">
+                    <option>Selecciona una Categoria</option>
+                    <option *ngFor="let cate of categories" value="{{cate.id}}"> {{cate.title}} </option>
+                  </select>
+                  <!-- <input name="subject" type="number" class="form-control" placeholder="Categoria" required=""> -->
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea name="message" rows="6" class="form-control" id="message"
+                    placeholder="Agreaga un descripcion del producto" required="" formControlName="description"></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01" (change)="onSelect($event)" accept="image/*">
+                  <label class="custom-file-label" for="inputGroupFile01">Escoge una foto</label>
+                </div>
+
+
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 mb-3 images">
+                <img *ngIf="imageUrl" [src]="imageUrl" alt="Imagen Previsualizada" />
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="filled-button">Registrar</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="left-content">
+          <h4>Que debes hacer aqui?</h4>
+          <p>
+            Para registrar un producto, complete el formulario proporcionando un título descriptivo del producto en el
+            primer campo, seguido del precio en el segundo (asegurándose de ingresar solo valores numéricos). Luego,
+            especifique la cantidad disponible en el inventario en el tercer campo, proporcione una breve descripción
+            del producto en el cuarto campo, y seleccione o indique la categoría correspondiente en el quinto.
+            Finalmente, agregue una descripción más detallada del producto en el campo de texto grande. Una vez
+            completados estos datos, podrá añadir una imagen representativa del producto antes de finalizar el registro.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
