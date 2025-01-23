@@ -17,13 +17,17 @@ export class NotificationsService {
   }
   succesNotifi(info: string){
     Swal.fire({
+      position: "top-end",
+      showConfirmButton: false,
       title: "En hora buena",
       text: info,
-      icon: "success"
+      icon: "success",
+      timer: 2500
     });
   }
   successfulRedirects(title: string,info: string, ruta: string){
     Swal.fire({
+      
       icon: 'success',
       title: title,
       text: info,

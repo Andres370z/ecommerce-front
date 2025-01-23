@@ -1,5 +1,5 @@
 <!-- Header -->
-<header class="">
+<header class="" style="z-index: 999 !important;">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -25,8 +25,65 @@
                     <li class="nav-item">
                         <a class="nav-link" (click)="navigate('contact')">Contact Us</a>
                     </li>
+                    <li class="nav-item mr-3" style="width: 40px;">
+                        <a href="#" class="nav-link nav-icon iconClass" data-toggle="modal"
+                            data-target="#exampleModalCenter">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="badge badge-light"> {{ cartDta.data[0].numIncart !== 0 ? cartDta.data.length :
+                                0}} </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true" style="z-index: 2300 !important;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Me lo llevo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <table class="table table-striped" *ngIf="cartDta.data[0].numIncart !== 0">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Nombre</th>
+                            <th scope="col" class="text-center">Cantidad</th>
+                            <th scope="col" class="text-center">Precio</th>
+                            <th scope="col" class="text-center">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of cartDta.data; let i=index">
+                            <td class="text-center">{{c.products.name}}</td>
+                            <td class="text-center">{{c.numIncart}}</td>
+                            <td class="text-center">{{c.products.price}}</td>
+                            <td class="text-center"><a (click)="cartService.deleteProductFromCart(i)"><i
+                                    class="fa fa-remove"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                Total: {{cartTotal}} 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <small> {{cartDta.data[0].numIncart !== 0 ? cartDta.data.length : 0 }} productos seleccionados </small>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="navigate('order-details')" type="button" class="btn btn" style="background-color: #f33f3f; color: #ffffff;" *ngIf="cartDta.data[0].numIncart !== 0" data-dismiss="modal">Ver Carrito</button>
+            </div>
+        </div>
+    </div>
+</div>

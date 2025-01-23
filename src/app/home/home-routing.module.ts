@@ -9,6 +9,7 @@ const routes: Routes = [{path: '', component: HomeComponent},
   {path: 'new-produts', loadChildren: () => import('./new-product/new-product.module').then(m => m.NewProductModule)},
   {path: 'product-list', loadChildren: () => import('./product-list/product-list.module').then(m => m.ProductListModule)},
   {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
+  {path: 'order-details', loadChildren: () => import('./order/order.module').then(m => m.OrderModule)},
 ];
 
 @NgModule({

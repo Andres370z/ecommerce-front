@@ -8,6 +8,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatBadgeModule,
+    MatIconModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
