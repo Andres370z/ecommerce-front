@@ -5,20 +5,20 @@
   <div class="owl-banner owl-carousel">
     <div class="banner-item-01">
       <div class="text-content">
-        <h4>cuidarte no es un lujo</h4>
-        <h2>es una prioridad.</h2>
+        <h4>Alcanza tus metas, </h4>
+        <h2>supera tus límites.</h2>
       </div>
     </div>
     <div class="banner-item-02">
       <div class="text-content">
-        <h4>Flash Deals</h4>
-        <h2>Get your best products</h2>
+        <h4>La fuerza está en ti, </h4>
+        <h2>equípate para ganar.</h2>
       </div>
     </div>
     <div class="banner-item-03">
       <div class="text-content">
-        <h4>Last Minute</h4>
-        <h2>Grab last minute deals</h2>
+        <h4>Tu próximo logro </h4>
+        <h2>empieza aquí</h2>
       </div>
     </div>
   </div>
@@ -30,129 +30,45 @@
       <div class="col-md-12">
         <div class="section-heading">
           <h2>Ultimos productos</h2>
-          <a href="products.html">ver todos... <i class="fa fa-angle-right"></i></a>
+          <a (click)="navigate('products')" style="cursor: pointer;">ver todos... <i class="fa fa-angle-right"></i></a>
+
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="#"><img src="assets/images/product_01.jpg" alt=""></a>
-          <div class="down-content">
-            <a href="#">
-              <h4>Tittle goes here</h4>
-            </a>
-            <h6>$25.75</h6>
-            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-            <ul class="stars">
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-            </ul>
-            <span>Reviews (24)</span>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4"*ngFor="let product of products">
+            <div class="product-item" >
+              <a href="#"><img [src]="product.image" alt=""></a>
+              <div class="down-content">
+                <a href="#">
+                  <h4> {{product.name}} </h4>
+                </a>
+                <h6>${{product.price}}</h6>
+                <p> {{product.short_desc}} </p>
+                <ul class="stars">
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                </ul>
+                <span><a style="color: #f33f3f!important;" (click)="addtoCart(product.id)">Añadir al
+                    carrito</a></span>
+              </div>
+            </div>
+
+
           </div>
         </div>
+
       </div>
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="#"><img src="assets/images/product_02.jpg" alt=""></a>
-          <div class="down-content">
-            <a href="#">
-              <h4>Tittle goes here</h4>
-            </a>
-            <h6>$30.25</h6>
-            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-            <ul class="stars">
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-            </ul>
-            <span>Reviews (21)</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="#"><img src="assets/images/product_03.jpg" alt=""></a>
-          <div class="down-content">
-            <a href="#">
-              <h4>Tittle goes here</h4>
-            </a>
-            <h6>$20.45</h6>
-            <p>Sixteen Clothing is free CSS template provided by TemplateMo.</p>
-            <ul class="stars">
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-            </ul>
-            <span>Reviews (36)</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="#"><img src="assets/images/product_04.jpg" alt=""></a>
-          <div class="down-content">
-            <a href="#">
-              <h4>Tittle goes here</h4>
-            </a>
-            <h6>$15.25</h6>
-            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-            <ul class="stars">
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-            </ul>
-            <span>Reviews (48)</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="#"><img src="assets/images/product_05.jpg" alt=""></a>
-          <div class="down-content">
-            <a href="#">
-              <h4>Tittle goes here</h4>
-            </a>
-            <h6>$12.50</h6>
-            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-            <ul class="stars">
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-            </ul>
-            <span>Reviews (16)</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="#"><img src="assets/images/product_06.jpg" alt=""></a>
-          <div class="down-content">
-            <a href="#">
-              <h4>Tittle goes here</h4>
-            </a>
-            <h6>$22.50</h6>
-            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-            <ul class="stars">
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-              <li><i class="fa fa-star"></i></li>
-            </ul>
-            <span>Reviews (32)</span>
-          </div>
-        </div>
-      </div>
+
+
+
+
+
+
+      
     </div>
   </div>
 </div>
@@ -162,29 +78,27 @@
     <div class="row">
       <div class="col-md-12">
         <div class="section-heading">
-          <h2>About Sixteen Clothing</h2>
+          <h2>Acerca de nuestra tienda deportiva</h2>
         </div>
       </div>
       <div class="col-md-6">
         <div class="left-content">
-          <h4>Looking for the best products?</h4>
-          <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">This template</a>
-            is free to use for your business websites. However, you have no permission to redistribute the downloadable
-            ZIP file on any template collection website. <a rel="nofollow" href="https://templatemo.com/contact">Contact
-              us</a> for more info.</p>
+          <h4>¿Buscas los mejores artículos deportivos?</h4>
+          <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">Esta plantilla</a>
+            es ideal para promover tu pasión por el deporte. Descubre la mejor calidad y estilo en un solo lugar. <a rel="nofollow" href="https://templatemo.com/contact">Contáctanos</a> para más información.</p>
           <ul class="featured-list">
-            <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-            <li><a href="#">Consectetur an adipisicing elit</a></li>
-            <li><a href="#">It aquecorporis nulla aspernatur</a></li>
-            <li><a href="#">Corporis, omnis doloremque</a></li>
-            <li><a href="#">Non cum id reprehenderit</a></li>
+            <li><a href="#">Productos diseñados para el máximo rendimiento</a></li>
+            <li><a href="#">Estilo y comodidad para cualquier disciplina</a></li>
+            <li><a href="#">Innovación en cada detalle</a></li>
+            <li><a href="#">Calidad garantizada para deportistas exigentes</a></li>
+            <li><a href="#">Todo lo que necesitas para alcanzar tus metas</a></li>
           </ul>
-          <a href="about.html" class="filled-button">Read More</a>
+          <a href="about.html" class="filled-button">Descubre más</a>
         </div>
       </div>
       <div class="col-md-6">
         <div class="right-image">
-          <img src="assets/images/feature-image.jpg" alt="">
+          <img src="assets/images/sport1.jpg" alt="">
         </div>
       </div>
     </div>

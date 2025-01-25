@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { OrderRoutingModule } from './order-routing.module';
 import { OrderComponent } from './order.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { OrderComponent } from './order.component';
   ],
   imports: [
     CommonModule,
-    OrderRoutingModule
+    OrderRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class OrderModule { }

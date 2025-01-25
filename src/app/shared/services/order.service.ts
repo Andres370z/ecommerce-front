@@ -11,15 +11,14 @@ import { ProductModelServer } from 'src/app/models/product.model';
 
 export class OrderService {
   private urlserve = environment.URL_SERVE
-  
+
   constructor(
     private httpClient: HttpClient,
-    private productService: ProductsService
   ) { }
-  getSingleOrder(ordenId: number){
-    return this.httpClient.get<productResponseModel[]>(`${this.urlserve}orderId`).toPromise();
+  getSingleOrder(ordenId: number) {
+    return this.httpClient.get<productResponseModel[]>(`${this.urlserve}orders/${ordenId}`).toPromise();
   }
-
+  
 }
 interface productResponseModel {
   id: number,

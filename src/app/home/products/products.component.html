@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="text-content">
-          <h4>new arrivals</h4>
-          <h2>sixteen products</h2>
+          <h4>Aqui encontraras</h4>
+          <h2>Todo lo que necesitas</h2>
         </div>
       </div>
     </div>
@@ -19,9 +19,9 @@
         <div class="filters">
           <ul>
             <li class="active" data-filter="*">All Products</li>
-            <li data-filter=".des">Featured</li>
-            <li data-filter=".dev">Flash Deals</li>
-            <li data-filter=".gra">Last Minute</li>
+            <li data-filter=".des">Articulos</li>
+            <li data-filter=".dev">Cuidado Personal</li>
+            <li data-filter=".gra">Suplementos</li>
           </ul>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <div class="row grid">
             <div class="col-lg-4 col-md-4 all des" *ngFor="let product of products">
               <div class="product-item">
-                <a href="#"><img [src]="product.image" alt=""></a>
+                <a href="#"><img [src]="product.image" alt="" height="300" width="350"></a>
                 <div class="down-content">
                   <a href="#">
                     <h4> {{product.name}} </h4>
@@ -54,13 +54,24 @@
         </div>
       </div>
       <div class="col-md-12">
-        <ul class="pages">
-          <li><a href="#">1</a></li>
-          <li class="active"><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-        </ul>
+        <!-- ESTA ES LA PAGINACION§  -->
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="onPageChange(currentPage - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li *ngFor="let page of [].constructor(6); let i = index" class="page-item" [class.active]="currentPage === i + 1">
+              <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" (click)="onPageChange(currentPage + 1)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

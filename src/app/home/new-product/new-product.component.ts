@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { registerProduct } from 'src/app/models/product.model';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 import { ProductsService } from 'src/app/shared/services/products.service';
 
 @Component({
@@ -19,7 +21,9 @@ export class NewProductComponent implements OnInit {
   constructor(
     private categoriesService: CategoriesService,
     private productService: ProductsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertService: NotificationsService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -37,10 +41,11 @@ export class NewProductComponent implements OnInit {
       price: [Validators.compose([Validators.required])],
       quantity: [Validators.compose([Validators.required])],
       short_desc: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      cat_id: [Validators.compose([Validators.required])]
+      cat_id: ['',Validators.compose([Validators.required])]
     })
   }
   onSelect(event: Event) {
+    this.spinner.show();
     const inputElement = event.target as HTMLInputElement;
 
     // Verificar si `files` está definido
@@ -74,9 +79,11 @@ export class NewProductComponent implements OnInit {
         next: (response: any) => {
           console.log(response);
           this.urlFinalImage = response.url
+          this.spinner.hide()
         },
         error: (e: any) => {
           console.log('daño ', e);
+          this.alertService.errorNotifi('Ups','Error al subir imagen')
         }
       }
     )
@@ -84,6 +91,7 @@ export class NewProductComponent implements OnInit {
   }
 
   onSubmit(form: any) {
+    this.spinner.show();
     console.log('este es form ----> ', form);
     const catid = Number(form.cat_id);
     console.log('este es id de cate ', catid);
@@ -97,8 +105,15 @@ export class NewProductComponent implements OnInit {
       short_desc: form.short_desc,
       cat_id: catid
     }
-    this.productService.registerNewProducts(data).subscribe((res: any)=>{
+    this.productService.registerNewProducts(data).then((res: any)=>{
       console.log('esto responde el back', res);
+      this.spinner.hide();
+      this.alertService.successfulRedirects('Ok', 'Producto creado', 'pages')
+    }).catch((err)=>{
+      this.spinner.hide();
+      console.log('error', err);
+      this.alertService.errorNotifi('Ups', 'No logre crear el producto')
+      
     })
   }
   

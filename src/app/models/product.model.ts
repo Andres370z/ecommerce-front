@@ -25,3 +25,7 @@ export interface registerProduct {
     short_desc: string,
     cat_id: number
 }
+
+export interface registerCategory {
+    title: string,
+}

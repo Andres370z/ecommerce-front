@@ -16,63 +16,135 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-heading">
-          <h2>Todos tus productos</h2>
+        <div class="section-heading" style="margin-top: 15px; margin-bottom: 10px;">
+          <h2>Tus productos en el carrito</h2>
         </div>
       </div>
 
       <div class="col-md-12">
-        <div class="text-center my-5" *ngIf="cartDta.data[0].numIncart === 0">
-          <h4>Hey todavia no tienes productos por aqui</h4>
+        <div class="row">
+          <div class="text-center my-5" *ngIf="cartDta.data[0].numIncart === 0">
+            <h4>Hey todavia no tienes productos por aqui</h4>
+          </div> 
+          <div class="col-md-8" *ngIf="cartDta.data[0].numIncart !== 0">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" class="text-center">borrar</th>
+                    <th scope="col" class="text-center">Nombre</th>
+                    <th scope="col" class="text-center">Categoria</th>
+                    <th scope="col" class="text-center">Precio</th>
+                    <th scope="col" class="text-center">Cantidad</th>
+                    <th scope="col" class="text-center">SubTotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let c of cartDta.data;let i=index">
+                    <td class="text-center"><i class="fa fa-trash text-danger"
+                        (click)="cartService.deleteProductFromCart(i)"></i></td>
+                    <td>{{c.products.name}}</td>
+                    <td>{{c.products.category}}</td>
+                    <td class="text-center">{{c.products.price | currency}}</td>
+                    <td class="text-center">
+                      <div class="input-container">
+                        <button type="button" (click)="changeQuantity(i, false)">-</button>
+                        <input type="number" id="number" [value]="c.numIncart" readonly [max]="c.products.quantity" />
+                        <button type="button" (click)="changeQuantity(i, true)">+</button>
+                      </div>
+                    </td>
+                    <td class="text-center">{{cartService.calculateSubTotal(i) | currency}}</td>
+                  </tr>
+                  <tr class="border-0">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center">Total:</td>
+                    <td>{{cartTotal | currency}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-md-4" *ngIf="cartDta.data[0].numIncart !== 0">
+            <div class="left-content">
+              <h4>Que ves aqui?</h4>
+              <p>
+                <strong>"¡Tu carrito de compras está listo!</strong> Aquí tienes un resumen de todos los productos que
+                has seleccionado. Si te has equivocado en alguna cantidad, no te preocupes: puedes ajustarla fácilmente
+                haciendo clic en los botones "+" o "-" junto a cada artículo. Recuerda que el precio final, incluyendo
+                los gastos de envío, se calculará al finalizar tu compra."
+            </div>
+          </div>
+          <div class="send-message" style="margin-top: 10px;" *ngIf="cartDta.data[0].numIncart !== 0">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="section-heading" style="margin-top: 15px; margin-bottom: 10px;">
+                    <h2>Registra tus datos</h2>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="contact-form">
+                    <form id="contact" action="" [formGroup]="forms" (ngSubmit)="onSubmin(forms.value)">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="name" type="text" class="form-control" id="name" placeholder="Nombre Completo"
+                              required="" formControlName="name">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="email" type="text" class="form-control" id="email"
+                              placeholder="Correo Electronico" required="" formControlName="email">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="subject" type="text" class="form-control" id="subject" placeholder="Direccion"
+                              required="" formControlName="address">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="subject" type="number" class="form-control" id="subject" placeholder="Telefono"
+                              required="" formControlName="phone">
+                          </fieldset>
+                        </div>
+                        <div class="col-lg-12">
+                          <fieldset>
+                            <button type="submit" id="form-submit" class="filled-button">Realizar pedido</button>
+                          </fieldset>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="left-content">
+                    <h4>Que debes hacer aqui?</h4>
+                    <p>
+                      "Para generar tu orden de compra, completa los 4 campos del formulario y haz clic en 'Realizar
+                      pedido'. Es fundamental que la información proporcionada sea precisa, ya que un asesor se pondrá
+                      en contacto contigo para confirmar tu pedido y programar la entrega."
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="col-md-8" *ngIf="cartDta.data[0].numIncart !== 0">
-          <table class="table table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col" class="text-center">borrar</th>
-                <th scope="col" class="text-center">Nombre</th>
-                <th scope="col" class="text-center">Categoria</th>
-                <th scope="col" class="text-center">Precio</th>
-                <th scope="col" class="text-center">Cantidad</th>
-                <th scope="col" class="text-center">SubTotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let c of cartDta.data;let i=index" >
-                
 
-                <td class="text-center"><i class="fa fa-trash text-danger" (click)="cartService.deleteProductFromCart(i)"></i></td>
-                <td>{{c.products.name}}</td>
-                <td>{{c.products.category}} </td>
-                <td class="text-center">{{c.products.price}}</td>
-                <td class="text-center">
-                    <div class="input-container">
-                      <button type="button" (click)="changeQuantity(i, false)">-</button>
-                      <input type="number" id="number"[value]="c.numIncart" readonly [max]="c.products.quantity" />
 
-                      <button type="button" (click)="changeQuantity(i, true)">+</button>
-                    </div>
-                  
-
-                </td>
-                <td class="text-center">
-                  {{cartService.calculateSubTotal(i)}} 
-                </td>
-                
-              </tr>
-              <tr class="border-0">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="text-center">Total:</td>
-                <td> {{cartTotal}} </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
 
       </div>
+
+
     </div>
   </div>
 </div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.9)" size = "medium" color = "#f33f3f" type = "ball-atom" [fullScreen] = "true"><p style="color: white" ></p></ngx-spinner>

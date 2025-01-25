@@ -4,7 +4,7 @@ import { ProductsService } from './products.service';
 import { environment } from 'src/environments/environment';
 import { OrderService } from './order.service';
 import { cartModelPublic, cartModelServer } from 'src/app/models/cart.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { ProductModelServer } from 'src/app/models/product.model';
 import { NavigationExtras, Router } from '@angular/router';
 import { NotificationsService } from './notifications.service';
@@ -220,47 +220,55 @@ export class CartService {
     return subTotal
   }
 
-  CheckoutFromCart(userId: Number) {
-
-    this.http.post(`${this.urlserver}orders/payment`, null).subscribe((res: { success: Boolean }) => {
-      console.clear();
-
-      if (res.success) {
-
-
-        this.resetServerData();
-        this.http.post(`${this.urlserver}orders/new`, {
-          userId: userId,
-          products: this.cartDataClient.productDta
-        }).subscribe((data: OrderResponse) => {
-
-          this.orderService.getSingleOrder(data.order_id).then(prods => {
-            if (data.success) {
-              const navigationExtras: NavigationExtras = {
-                state: {
-                  message: data.message,
-                  products: prods,
-                  orderId: data.order_id,
-                  total: this.cartDataClient.total
-                }
-              };
-              this.spinner.hide().then();
-              this.router.navigate(['/thankyou'], navigationExtras).then(p => {
-                this.cartDataClient = { productDta: [{ incart: 0, id: 0 }], total: 0 };
-                this.cartTotal$.next(0);
-                localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
-              });
-            }
+  
+  checkoutFromCart(userId: Number, datUsr: any) {
+    this.http.post(`${this.urlserver}orders/payment`, null).pipe(
+      switchMap((res: { success: Boolean }) => {
+        if (res.success) {
+          this.resetServerData();
+          return this.http.post(`${this.urlserver}orders/new`, {
+            userId: userId,
+            products: this.cartDataClient.productDta,
+            email: datUsr.email,
+            address: datUsr.address,
+            nameClient: datUsr.nameClient,
+            phoneClient: datUsr.phoneClient,
           });
-
-        })
+        } else {
+          this.spinner.hide();
+          this.notificationService.errorNotifi('Ups','No pudimos reservar el producto');
+          throw new Error('No se pudo procesar el pago');
+        }
+      }),
+      switchMap((data: OrderResponse) => {
+        return this.orderService.getSingleOrder(data.order_id).then(prods => ({
+          data, prods,
+        }));
+      })
+    ).subscribe(({ data, prods }) => {
+      if (data.success) {
+        console.log('------> products', prods);
+        
+        const navigationExtras: NavigationExtras = {
+          state: {
+            message: data.message,
+            products: prods,
+            orderId: data.order_id,
+            total: this.cartDataClient.total,
+          },
+        };
+        this.spinner.hide();
+        this.router.navigate(['/thanks'], navigationExtras).then(() => {
+          this.cartDataClient = { productDta: [{ incart: 0, id: 0 }], total: 0 };
+          this.cartTotal$.next(0);
+          localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+        });
       } else {
-        this.spinner.hide().then();
-        this.notificationService.errorNotifi('Ups','No pudimos reservar el producto')
-        console.log('se jodio');
-
+        console.log('se jodió aquí');
       }
-    })
+    }, error => {
+      console.error('Error en el proceso de checkout:', error);
+    });
   }
 
 
