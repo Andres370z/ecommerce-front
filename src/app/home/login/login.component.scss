@@ -1,0 +1,33 @@
+h2 {
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 24px;
+	font-weight: 700;
+	-webkit-transition: all .3s ease 0s;
+	-moz-transition: all .3s ease 0s;
+	-o-transition: all .3s ease 0s;
+	transition: all .3s ease 0s;
+}
+h2 em {
+	font-style: normal;
+	color: #f33f3f;
+}
+p {
+    text-align: justify;
+}
+.cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.red-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    border-radius: 10px;
+    border: 2px solid #f33f3f;
+    /* Puedes ajustar el grosor del borde según sea necesario */
+    padding: 10px;
+    
+}

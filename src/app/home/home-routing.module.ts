@@ -11,6 +11,7 @@ const routes: Routes = [{path: '', component: HomeComponent},
   {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
   {path: 'order-details', loadChildren: () => import('./order/order.module').then(m => m.OrderModule)},
   {path: 'thanks', loadChildren: () => import('./thanks/thanks.module').then(m => m.ThanksModule)},
+  {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule)},
 ];
 
 @NgModule({

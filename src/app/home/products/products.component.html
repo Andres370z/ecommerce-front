@@ -18,10 +18,8 @@
       <div class="col-md-12">
         <div class="filters">
           <ul>
-            <li class="active" data-filter="*">All Products</li>
-            <li data-filter=".des">Articulos</li>
-            <li data-filter=".dev">Cuidado Personal</li>
-            <li data-filter=".gra">Suplementos</li>
+            <li class="active" data-filter="*" *ngFor="let category of categories" (click)="getSigleCategory(category.title)">{{category.title}}</li>
+            <li class="active" data-filter="*" (click)="getProducts()" >Todos los productos</li>
           </ul>
         </div>
       </div>
@@ -76,3 +74,5 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.9)" size = "medium" color = "#f33f3f" type = "ball-atom" [fullScreen] = "true"><p style="color: white" ></p></ngx-spinner>

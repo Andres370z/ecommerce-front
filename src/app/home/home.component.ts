@@ -19,8 +19,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getAllProducts(1,6).subscribe((res: any)=>{
       this.products = res.products;
-      console.log('esta es tu respuesta ----> ', res);
-      
     })
   }
   navigate(ruta: string){

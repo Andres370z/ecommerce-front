@@ -21,7 +21,7 @@ export class ProductsService {
     private notificationService: NotificationsService
   ) { }
 
-   getAllProducts(page: number = 1,results: number = 10): Observable<ServerResponse>{
+  getAllProducts(page: number = 1, results: number = 10): Observable<ServerResponse> {
     return this.httpClient.get<ServerResponse>(`${this.URL_SERVE}products`, {
       params: {
         page: page.toString(),
@@ -29,30 +29,37 @@ export class ProductsService {
       }
     })
   }
-  async getAllproductss(page: number = 1,results: number = 10): Promise<any>{
+  async getAllproductss(page: number = 1, results: number = 10): Promise<any> {
     try {
       const response: any = await this.httpClient.get<ServerResponse>(`${this.URL_SERVE}products`, {
         params: {
           page: page.toString(),
-          limit: results.toString() 
+          limit: results.toString()
         }
       }).toPromise();
       return response
-    }catch (error){
+    } catch (error) {
       console.log('error --->', error);
       this.notificationService.errorNotifi('Ups', 'Error en el servicio');
-      
+
     }
   }
 
-  getSingleProduct(id: number): Observable<ProductModelServer>{
+  getSingleProduct(id: number): Observable<ProductModelServer> {
     return this.httpClient.get<ProductModelServer>(`${this.URL_SERVE}products/${id}`);
   }
 
-  getProdutcsCategory(productName: string){
+  getProdutcsCategory(productName: string) {
     return this.httpClient.get<ProductModelServer>(`${this.URL_SERVE}products/categoty/${productName}`);
-
   }
+  getAllCategories() {
+    return this.httpService.GET('categories')
+  }
+  getSingleCategory(name: string){
+    return this.httpService.GET(`categories/${name}`)
+  }
+
+
   uploadImages(file: any): Observable<any> {
     try {
       return this.httpClient.post(this.imgUrl, file);
@@ -61,11 +68,11 @@ export class ProductsService {
     }
   }
 
-  registerNewProducts(product: registerProduct){
+  registerNewProducts(product: registerProduct) {
     return this.httpService.POST(`products/create`, product)
   }
-  
-  createoneCategory(category: registerCategory){
+
+  createoneCategory(category: registerCategory) {
     return this.httpService.POST(`categories/create`, category);
   }
 }
