@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     private productsService: ProductsService,
     private alertService: NotificationsService,
     private formBuilder: FormBuilder
-  ) { }
+  ) { } 
 
   ngOnInit(): void {
     this.getProducts();
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   getProducts() {
     this.productsService.getAllProducts(this.currentPage, 10).subscribe((res: any) => {
       this.products = res.products;
-      this.totalPages = res.count;
+      this.totalPages = Math.ceil(res.totalCount / 10);
       console.log('esta es tu respuesta ----> ', res);
 
     })
